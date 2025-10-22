@@ -3,96 +3,113 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Reseñas de EcoSpot</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="reseñas.css">
+  <title>Reseñas - EcoMap</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   
+  <!-- Estilos globales primero -->
+  <link rel="stylesheet" href="styles.css">
+  <!-- Estilos específicos de la página después -->
+  <link rel="stylesheet" href="reseñas.css">
 </head>
 <body>
-  <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg navbar-light">
-    <div class="container">
-      <a class="navbar-brand fw-bold text-success" href="#">🌿 EcoSpot</a>
-      <div class="collapse navbar-collapse">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item"><a class="nav-link" href="index.html">Inicio</a></li>
-          <li class="nav-item"><a class="nav-link" href="#">Mapa</a></li>
-          <li class="nav-item"><a class="nav-link active" href="#">Comunidad</a></li>
-          <li class="nav-item"><a class="nav-link" href="#">Recursos</a></li>
-        </ul>
-      </div>
-    </div>
-  </nav>
+  <!-- El navbar se carga dinámicamente -->
+  <div id="navbar-container"></div>
 
-  <!-- Contenido -->
-  <div class="container py-5">
-    <div class="text-center mb-5">
-      <h2 class="fw-bold">Reseñas de EcoSpot</h2>
-      <p class="text-muted">Lee las experiencias de otros usuarios y comparte la tuya.</p>
+  <div class="reviews-container">
+    <div class="reviews-header">
+      <h1>Reseñas de EcoMap</h1>
+      <p>Lee las experiencias de otros usuarios y comparte la tuya.</p>
     </div>
 
-    <div class="row">
-      <!-- Reseñas -->
-      <div class="col-md-7">
+    <div class="reviews-grid">
+      <!-- Lista de reseñas -->
+      <div class="reviews-list">
         <div class="review-card">
-          <div class="d-flex align-items-center mb-2">
-            <img src="https://i.pravatar.cc/40?img=1" class="rounded-circle me-2" alt="Usuario">
-            <div>
-              <strong>Sofía Ramírez</strong><br>
-              <small class="text-muted">15 de mayo de 2024</small>
+          <div class="review-header">
+            <img src="https://i.pravatar.cc/50?img=1" alt="Sofía" class="review-avatar">
+            <div class="review-info">
+              <h4>Sofía Ramírez</h4>
+              <span class="review-date">15 de mayo de 2024</span>
             </div>
           </div>
-          <p>EcoSpot ha transformado mi forma de reciclar. Encuentro puntos cercanos fácilmente y la comunidad es muy activa. ¡Recomendado!</p>
-          <div class="text-muted small">
-            <span>👍 12</span> &nbsp; <span>💬 2</span>
+          <p class="review-content">
+            EcoMap ha transformado mi forma de reciclar. Encuentro puntos cercanos fácilmente y la comunidad es muy activa. ¡Recomendado!
+          </p>
+          <div class="review-actions">
+            <span>👍 12</span>
+            <span>💬 2</span>
           </div>
         </div>
 
         <div class="review-card">
-          <div class="d-flex align-items-center mb-2">
-            <img src="https://i.pravatar.cc/40?img=2" class="rounded-circle me-2" alt="Usuario">
-            <div>
-              <strong>Carlos Mendoza</strong><br>
-              <small class="text-muted">20 de abril de 2024</small>
+          <div class="review-header">
+            <img src="https://i.pravatar.cc/50?img=2" alt="Carlos" class="review-avatar">
+            <div class="review-info">
+              <h4>Carlos Mendoza</h4>
+              <span class="review-date">20 de abril de 2024</span>
             </div>
           </div>
-          <p>La aplicación es útil, aunque a veces la información no está completamente actualizada. Sería genial tener más opciones de reciclaje.</p>
-          <div class="text-muted small">
-            <span>👍 8</span> &nbsp; <span>💬 1</span>
+          <p class="review-content">
+            La aplicación es útil, aunque a veces la información no está completamente actualizada. Sería genial tener más opciones de reciclaje.
+          </p>
+          <div class="review-actions">
+            <span>👍 8</span>
+            <span>💬 1</span>
           </div>
         </div>
 
         <div class="review-card">
-          <div class="d-flex align-items-center mb-2">
-            <img src="https://i.pravatar.cc/40?img=3" class="rounded-circle me-2" alt="Usuario">
-            <div>
-              <strong>Ana Torres</strong><br>
-              <small class="text-muted">5 de marzo de 2024</small>
+          <div class="review-header">
+            <img src="https://i.pravatar.cc/50?img=3" alt="Ana" class="review-avatar">
+            <div class="review-info">
+              <h4>Ana Torres</h4>
+              <span class="review-date">5 de marzo de 2024</span>
             </div>
           </div>
-          <p>EcoSpot es una buena idea, pero la interfaz podría ser más intuitiva. A veces me cuesta encontrar lo que busco.</p>
-          <div class="text-muted small">
-            <span>👍 5</span> &nbsp; <span>💬 3</span>
+          <p class="review-content">
+            EcoMap es una buena idea, pero la interfaz podría ser más intuitiva. A veces me cuesta encontrar lo que busco.
+          </p>
+          <div class="review-actions">
+            <span>👍 5</span>
+            <span>💬 3</span>
           </div>
         </div>
       </div>
 
-      <!-- Añadir reseña -->
-      <div class="col-md-5">
-        <div class="review-form">
-          <h5 class="fw-bold mb-3">Añadir una Reseña</h5>
-          <form>
-            <div class="mb-3">
-              <input type="text" class="form-control" placeholder="Tu nombre">
-            </div>
-            <div class="mb-3">
-              <textarea class="form-control" rows="4" placeholder="Comparte tu experiencia..."></textarea>
-            </div>
-            <button type="submit" class="btn btn-primary w-100">Enviar Reseña</button>
-          </form>
-        </div>
+      <!-- Formulario -->
+      <div class="review-form">
+        <h3>Añadir una Reseña</h3>
+        <form>
+          <div class="form-group">
+            <input type="text" placeholder="Tu nombre" required>
+          </div>
+          <div class="form-group">
+            <textarea placeholder="Comparte tu experiencia..." required></textarea>
+          </div>
+          <button type="submit" class="submit-btn">Enviar Reseña</button>
+        </form>
       </div>
     </div>
   </div>
+
+  <script src="navbar.js"></script>
 </body>
 </html>
+```
+
+## **3️⃣ Estructura de carpetas final:**
+```
+tu-proyecto/
+│
+├── index.html
+├── mapa.html
+├── reseñas.html
+├── navbar.html
+├── styles.css          (estilos globales)
+├── navbar.js
+│
+└── css/
+    ├── reseñas.css
+    └── mapa.css        (cuando lo crees)
