@@ -9,6 +9,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="mapa.css">
+
 </head>
 <body>
   <!-- Navbar (se carga automáticamente) -->
@@ -61,13 +62,87 @@
         allowfullscreen 
         loading="lazy">
       </iframe>
-      <button class="add-point-btn">
+      <button class="add-point-btn" id="openModalBtn">
         <span>➕</span>
         <span>Agregar punto ecológico</span>
       </button>
     </div>
   </div>
 
+  <!-- MODAL -->
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Agregar Punto Ecológico</h2>
+        <button class="close-modal" id="closeModalBtn">&times;</button>
+      </div>
+
+      <form id="addPointForm">
+        <div class="form-group">
+          <label for="nombre">Nombre del lugar *</label>
+          <input type="text" id="nombre" placeholder="Ej: Centro de Reciclaje Miraflores" required>
+        </div>
+
+        <div class="form-group">
+          <label for="categoriaModal">Categoría *</label>
+          <select id="categoriaModal" required>
+            <option value="">Selecciona una categoría</option>
+            <option>♻️ Reciclaje general</option>
+            <option>🗑️ Punto limpio</option>
+            <option>🌱 Compostaje</option>
+            <option>🔋 Pilas y baterías</option>
+            <option>📱 Electrónicos</option>
+            <option>🧴 Plásticos</option>
+            <option>📄 Papel y cartón</option>
+            <option>🍾 Vidrio</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="direccion">Dirección *</label>
+          <input type="text" id="direccion" placeholder="Av. Larco 123, Miraflores" required>
+        </div>
+
+        <div class="form-group">
+          <label for="distritoModal">Distrito *</label>
+          <select id="distritoModal" required>
+            <option value="">Selecciona un distrito</option>
+            <option>Miraflores</option>
+            <option>San Isidro</option>
+            <option>Surco</option>
+            <option>Barranco</option>
+            <option>San Borja</option>
+            <option>La Molina</option>
+            <option>Jesús María</option>
+            <option>Pueblo Libre</option>
+            <option>Magdalena</option>
+            <option>Lince</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="horario">Horario de atención</label>
+          <input type="text" id="horario" placeholder="Ej: Lun-Vie 8:00-18:00">
+          <p class="form-hint">Opcional: Ayuda a otros usuarios a saber cuándo está abierto</p>
+        </div>
+
+        <div class="form-group">
+          <label for="descripcion">Descripción</label>
+          <textarea id="descripcion" placeholder="Describe qué materiales reciben, servicios adicionales, etc."></textarea>
+          <p class="form-hint">Opcional: Información adicional útil para la comunidad</p>
+        </div>
+
+        <div class="form-actions">
+          <button type="button" class="btn-cancel" id="cancelBtn">Cancelar</button>
+          <button type="submit" class="btn-submit">✓ Agregar punto</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
   <script src="navbar.js"></script>
+  <script src="mapa.js"></script>    <!-- Luego funcionalidad de mapa -->
+
+  
 </body>
 </html>
