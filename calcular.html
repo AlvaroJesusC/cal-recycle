@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Huella de Carbono - Ecol-Recycle</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="js/navbar.js"></script>
+
+</head>
+<body class="bg-gray-50">
+    <!-- Header -->
+     <!-- barra superior  -->
+    <div id="navbar-container"></div>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-6 pt-24 pb-12">
+        <!-- Title Section -->
+        <div class="text-center mb-12">
+            <h2 class="text-4xl font-bold text-gray-800 mb-4">Calculadora de Huella de Carbono</h2>
+            <p class="text-gray-600 text-lg">Calcula tu impacto ambiental completo y descubre cómo reducir tus emisiones de CO₂.</p>
+            <p class="text-sm text-gray-500 mt-2">Factores de emisión adaptados para Perú</p>
+        </div>
+
+        <!-- Calculator Form -->
+        <div class="max-w-5xl mx-auto bg-white rounded-2xl shadow-lg p-8 mb-8">
+            <form id="carbonForm">
+                <!-- Energía Section -->
+                <div class="mb-8">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-12 h-12 bg-yellow-100 rounded-full flex items-center justify-center">
+                            <span class="text-2xl">💡</span>
+                        </div>
+                        <h3 class="text-2xl font-semibold text-gray-800">Energía en el Hogar</h3>
+                    </div>
+                    
+                    <div class="grid md:grid-cols-2 gap-6 ml-15">
+                        <div>
+                            <label class="block text-gray-700 mb-2 font-medium">Consumo eléctrico mensual (kWh)</label>
+                            <input type="number" id="electricity" class="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-teal-400" placeholder="Ejemplo: 300" value="0">
+                            <p class="text-xs text-gray-500 mt-1">Revisa tu recibo de luz</p>
+                        </div>
+                        <div>
+                            <label class="block text-gray-700 mb-2 font-medium">Consumo de gas mensual (m³)</label>
+                            <input type="number" id="gas" class="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-teal-400" placeholder="Ejemplo: 50" value="0">
+                            <p class="text-xs text-gray-500 mt-1">Si usas balón, aproximadamente 15 m³/mes</p>
+                        </div>
+                        <div>
+                            <label class="block text-gray-700 mb-2 font-medium">Consumo de agua mensual (m³)</label>
+                            <input type="number" id="water" class="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-teal-400" placeholder="Ejemplo: 15" value="0">
+                            <p class="text-xs text-gray-500 mt-1">Revisa tu recibo de agua</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Transporte Section -->
+                <div class="mb-8 pt-8 border-t-2 border-gray-100">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
+                            <span class="text-2xl">🚗</span>
+                        </div>
+                        <h3 class="text-2xl font-semibold text-gray-800">Transporte</h3>
+                    </div>
+                    
+                    <div class="grid md:grid-cols-2 gap-6 ml-15">
+                        <div>
+                            <label class="block text-gray-700 mb-2 font-medium">Tipo de vehículo principal</label>
+                            <select id="vehicleType" class="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-teal-400">
+                                <option value="none">No tengo vehículo</option>
+                                <option value="motorcycle">Motocicleta</option>
+                                <option value="small">Auto pequeño (hasta 1.4L)</option>
+                                <option value="medium">Auto mediano (1.5L - 2.0L)</option>
+                                <option value="large">Auto grande/SUV (más de 2.0L)</option>
+                                <option value="diesel">Diesel</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-gray-700 mb-2 font-medium">Km recorridos al mes</label>
+                            <input type="number" id="carKm" class="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-teal-400" placeholder="Ejemplo: 500" value="0">
+                        </div>
+                        <div>
+                            <label class="block text-gray-700 mb-2 font-medium">Uso de transporte público (días/semana)</label>
+                            <input type="number" id="publicTransport" min="0" max="7" class="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-teal-400" placeholder="Ejemplo: 5" value="0">
+                        </div>
+                        <div>
+                            <label class="block text-gray-700 mb-2 font-medium">Vuelos al año</label>
+                            <input type="number" id="flights" class="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-teal-400" placeholder="Ejemplo: 2" value="0">
+                            <p class="text-xs text-gray-500 mt-1">Incluye viajes nacionales e internacionales</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Alimentación Section -->
+                <div class="mb-8 pt-8 border-t-2 border-gray-100">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center">
+                            <span class="text-2xl">🍽️</span>
+                        </div>
+                        <h3 class="text-2xl font-semibold text-gray-800">Alimentación</h3>
+                    </div>
+                    
+                    <div class="grid md:grid-cols-2 gap-6 ml-15">
+                        <div>
+                            <label class="block text-gray-700 mb-2 font-medium">Tipo de dieta</label>
+                            <select id="diet" class="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-teal-400">
+                                <option value="high-meat">Alto consumo de carne (diario)</option>
+                                <option value="medium-meat">Consumo moderado de carne (3-4 veces/semana)</option>
+                                <option value="low-meat">Bajo consumo de carne (1-2 veces/semana)</option>
+                                <option value="pescatarian">Pescatariano</option>
+                                <option value="vegetarian">Vegetariano</option>
+                                <option value="vegan">Vegano</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-gray-700 mb-2 font-medium">Comida desperdiciada (%)</label>
+                            <input type="number" id="foodWaste" min="0" max="100" class="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-teal-400" placeholder="Ejemplo: 10" value="10">
+                            <p class="text-xs text-gray-500 mt-1">Porcentaje aproximado de comida que se desecha</p>
+                        </div>
+                        <div>
+                            <label class="block text-gray-700 mb-2 font-medium">Compras de productos locales</label>
+                            <select id="localFood" class="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-teal-400">
+                                <option value="low">Raramente (0-25%)</option>
+                                <option value="medium">A veces (25-50%)</option>
+                                <option value="high">Frecuentemente (50-75%)</option>
+                                <option value="very-high">Casi siempre (75-100%)</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Consumo Section -->
+                <div class="mb-8 pt-8 border-t-2 border-gray-100">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center">
+                            <span class="text-2xl">🛍️</span>
+                        </div>
+                        <h3 class="text-2xl font-semibold text-gray-800">Consumo y Estilo de Vida</h3>
+                    </div>
+                    
+                    <div class="grid md:grid-cols-2 gap-6 ml-15">
+                        <div>
+                            <label class="block text-gray-700 mb-2 font-medium">Compra de ropa nueva al año</label>
+                            <select id="clothing" class="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-teal-400">
+                                <option value="low">Poco (0-5 prendas)</option>
+                                <option value="medium">Moderado (6-15 prendas)</option>
+                                <option value="high">Frecuente (16-30 prendas)</option>
+                                <option value="very-high">Mucho (más de 30 prendas)</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-gray-700 mb-2 font-medium">Compra de electrónicos</label>
+                            <select id="electronics" class="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-teal-400">
+                                <option value="low">Raramente (cada 3+ años)</option>
+                                <option value="medium">Ocasionalmente (cada 2 años)</option>
+                                <option value="high">Frecuentemente (cada año)</option>
+                                <option value="very-high">Muy frecuente (varias veces al año)</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-gray-700 mb-2 font-medium">Servicios de streaming/internet</label>
+                            <input type="number" id="streaming" min="0" class="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-teal-400" placeholder="Horas diarias" value="0">
+                            <p class="text-xs text-gray-500 mt-1">Horas promedio de uso diario</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Reciclaje Section -->
+                <div class="mb-8 pt-8 border-t-2 border-gray-100">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-12 h-12 bg-teal-100 rounded-full flex items-center justify-center">
+                            <span class="text-2xl">♻️</span>
+                        </div>
+                        <h3 class="text-2xl font-semibold text-gray-800">Hábitos de Reciclaje</h3>
+                    </div>
+                    
+                    <div class="ml-15">
+                        <label class="block text-gray-700 mb-4 font-medium">¿Qué materiales reciclas regularmente?</label>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <label class="flex items-center gap-3 p-4 border-2 border-gray-200 rounded-lg cursor-pointer hover:border-teal-300 transition">
+                                <input type="checkbox" id="recyclePlastic" class="w-5 h-5 text-teal-500 rounded">
+                                <span class="text-gray-700">Plástico</span>
+                            </label>
+                            <label class="flex items-center gap-3 p-4 border-2 border-gray-200 rounded-lg cursor-pointer hover:border-teal-300 transition">
+                                <input type="checkbox" id="recyclePaper" class="w-5 h-5 text-teal-500 rounded">
+                                <span class="text-gray-700">Papel y Cartón</span>
+                            </label>
+                            <label class="flex items-center gap-3 p-4 border-2 border-gray-200 rounded-lg cursor-pointer hover:border-teal-300 transition">
+                                <input type="checkbox" id="recycleGlass" class="w-5 h-5 text-teal-500 rounded">
+                                <span class="text-gray-700">Vidrio</span>
+                            </label>
+                            <label class="flex items-center gap-3 p-4 border-2 border-gray-200 rounded-lg cursor-pointer hover:border-teal-300 transition">
+                                <input type="checkbox" id="recycleMetal" class="w-5 h-5 text-teal-500 rounded">
+                                <span class="text-gray-700">Metal (latas, aluminio)</span>
+                            </label>
+                            <label class="flex items-center gap-3 p-4 border-2 border-gray-200 rounded-lg cursor-pointer hover:border-teal-300 transition">
+                                <input type="checkbox" id="recycleElectronics" class="w-5 h-5 text-teal-500 rounded">
+                                <span class="text-gray-700">Electrónicos</span>
+                            </label>
+                            <label class="flex items-center gap-3 p-4 border-2 border-gray-200 rounded-lg cursor-pointer hover:border-teal-300 transition">
+                                <input type="checkbox" id="recycleTextiles" class="w-5 h-5 text-teal-500 rounded">
+                                <span class="text-gray-700">Textiles (ropa usada)</span>
+                            </label>
+                        </div>
+                        
+                        <div class="mt-6">
+                            <label class="flex items-center gap-3 p-4 border-2 border-gray-200 rounded-lg cursor-pointer hover:border-teal-300 transition">
+                                <input type="checkbox" id="compost" class="w-5 h-5 text-teal-500 rounded">
+                                <span class="text-gray-700">Hago compost con residuos orgánicos</span>
+                            </label>
+                        </div>
+
+                        <div class="mt-6">
+                            <label class="flex items-center gap-3 p-4 border-2 border-gray-200 rounded-lg cursor-pointer hover:border-teal-300 transition">
+                                <input type="checkbox" id="reusable" class="w-5 h-5 text-teal-500 rounded">
+                                <span class="text-gray-700">Uso bolsas reutilizables y evito plásticos de un solo uso</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Calculate Button -->
+                <div class="text-center mt-10">
+                    <button type="button" onclick="calculateCarbon()" class="bg-teal-500 hover:bg-teal-600 text-white font-semibold px-12 py-4 rounded-lg text-lg transition shadow-md hover:shadow-lg">
+                        Calcular mi Huella de Carbono
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Results Section -->
+        <div id="results" class="max-w-5xl mx-auto hidden">
+            <!-- Total Emissions Card -->
+            <div class="bg-gradient-to-r from-teal-500 to-teal-600 rounded-2xl shadow-xl p-8 mb-6 text-white">
+                <div class="text-center">
+                    <p class="text-lg mb-2 opacity-90">Tu Huella de Carbono Anual</p>
+                    <div class="text-6xl font-bold mb-2">
+                        <span id="totalEmissions">0</span>
+                        <span class="text-3xl">kg CO₂</span>
+                    </div>
+                    <p class="text-sm opacity-90 mt-2">
+                        <span id="comparison" class="font-semibold"></span>
+                    </p>
+                    <p class="text-xs opacity-75 mt-3">Equivalente a <span id="equivalence" class="font-semibold">0</span></p>
+                </div>
+            </div>
+
+            <!-- Breakdown Cards -->
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+                <!-- Energy Card -->
+                <div class="bg-white rounded-xl shadow-md p-5">
+                    <div class="w-10 h-10 bg-yellow-100 rounded-full flex items-center justify-center mb-3">
+                        <span class="text-xl">💡</span>
+                    </div>
+                    <h4 class="text-sm font-semibold text-gray-800 mb-1">Energía</h4>
+                    <p class="text-2xl font-bold text-teal-600"><span id="energyEmissions">0</span> kg</p>
+                    <p class="text-xs text-gray-600 mt-1"><span id="energyPercent">0</span>% del total</p>
+                </div>
+
+                <!-- Transport Card -->
+                <div class="bg-white rounded-xl shadow-md p-5">
+                    <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center mb-3">
+                        <span class="text-xl">🚗</span>
+                    </div>
+                    <h4 class="text-sm font-semibold text-gray-800 mb-1">Transporte</h4>
+                    <p class="text-2xl font-bold text-teal-600"><span id="transportEmissions">0</span> kg</p>
+                    <p class="text-xs text-gray-600 mt-1"><span id="transportPercent">0</span>% del total</p>
+                </div>
+
+                <!-- Food Card -->
+                <div class="bg-white rounded-xl shadow-md p-5">
+                    <div class="w-10 h-10 bg-red-100 rounded-full flex items-center justify-center mb-3">
+                        <span class="text-xl">🍽️</span>
+                    </div>
+                    <h4 class="text-sm font-semibold text-gray-800 mb-1">Alimentación</h4>
+                    <p class="text-2xl font-bold text-teal-600"><span id="foodEmissions">0</span> kg</p>
+                    <p class="text-xs text-gray-600 mt-1"><span id="foodPercent">0</span>% del total</p>
+                </div>
+
+                <!-- Consumption Card -->
+                <div class="bg-white rounded-xl shadow-md p-5">
+                    <div class="w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center mb-3">
+                        <span class="text-xl">🛍️</span>
+                    </div>
+                    <h4 class="text-sm font-semibold text-gray-800 mb-1">Consumo</h4>
+                    <p class="text-2xl font-bold text-teal-600"><span id="consumptionEmissions">0</span> kg</p>
+                    <p class="text-xs text-gray-600 mt-1"><span id="consumptionPercent">0</span>% del total</p>
+                </div>
+            </div>
+
+            <!-- Savings Card -->
+            <div class="bg-gradient-to-r from-green-500 to-green-600 rounded-xl shadow-lg p-6 mb-8 text-white">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <h4 class="text-lg font-semibold mb-1">🎉 ¡Ahorro por tus hábitos ecológicos!</h4>
+                        <p class="text-sm opacity-90">Has evitado emitir:</p>
+                    </div>
+                    <div class="text-right">
+                        <p class="text-4xl font-bold">-<span id="recyclingSavings">0</span> kg</p>
+                        <p class="text-sm opacity-90">CO₂ al año</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Chart Placeholder -->
+            <div class="bg-white rounded-2xl shadow-lg p-8 mb-8">
+                <h3 class="text-2xl font-bold text-gray-800 mb-6">📊 Distribución de tu Huella</h3>
+                <div class="space-y-4">
+                    <div>
+                        <div class="flex justify-between mb-2">
+                            <span class="text-gray-700 font-medium">Energía</span>
+                            <span class="text-gray-600" id="energyBar">0 kg</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-3">
+                            <div id="energyBarWidth" class="bg-yellow-400 h-3 rounded-full transition-all" style="width: 0%"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between mb-2">
+                            <span class="text-gray-700 font-medium">Transporte</span>
+                            <span class="text-gray-600" id="transportBar">0 kg</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-3">
+                            <div id="transportBarWidth" class="bg-blue-400 h-3 rounded-full transition-all" style="width: 0%"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between mb-2">
+                            <span class="text-gray-700 font-medium">Alimentación</span>
+                            <span class="text-gray-600" id="foodBar">0 kg</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-3">
+                            <div id="foodBarWidth" class="bg-red-400 h-3 rounded-full transition-all" style="width: 0%"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between mb-2">
+                            <span class="text-gray-700 font-medium">Consumo</span>
+                            <span class="text-gray-600" id="consumptionBar">0 kg</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-3">
+                            <div id="consumptionBarWidth" class="bg-purple-400 h-3 rounded-full transition-all" style="width: 0%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recommendations -->
+            <div class="bg-white rounded-2xl shadow-lg p-8">
+                <h3 class="text-2xl font-bold text-gray-800 mb-6">💚 Recomendaciones Personalizadas</h3>
+                <div id="recommendations" class="space-y-4">
+                    <!-- Recommendations will be inserted here -->
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Emission factors adjusted for Peru
+        const FACTORS = {
+            // Energy (Peru has ~50% hydroelectric, lower emissions than global average)
+            electricity: 0.18, // kg CO2 per kWh (Peru's grid mix)
+            gas: 2.0, // kg CO2 per m³
+            water: 0.35, // kg CO2 per m³ (treatment and distribution)
+            
+            // Transport (km -> kg CO2)
+            vehicle: {
+                none: 0,
+                motorcycle: 0.06,
+                small: 0.12,
+                medium: 0.15,
+                large: 0.20,
+                diesel: 0.17
+            },
+            publicTransport: 0.05, // per km estimated (buses in Lima)
+            flight: 250, // kg CO2 per flight (average)
+            
+            // Diet (annual kg CO2)
+            diet: {
+                'high-meat': 2500,
+                'medium-meat': 1900,
+                'low-meat': 1500,
+                'pescatarian': 1200,
+                'vegetarian': 1000,
+                'vegan': 800
+            },
+            
+            // Consumption
+            clothing: {
+                low: 120,
+                medium: 350,
+                high: 600,
+                'very-high': 900
+            },
+            electronics: {
+                low: 100,
+                medium: 250,
+                high: 450,
+                'very-high': 700
+            },
+            streaming: 55, // kg CO2 per year per hour daily
+            
+            // Recycling savings (annual kg CO2 saved)
+            recycling: {
+                plastic: 180,
+                paper: 230,
+                glass: 80,
+                metal: 160,
+                electronics: 150,
+                textiles: 120,
+                compost: 200,
+                reusable: 90
+            }
+        };
+
+        function calculateCarbon() {
+            // Get all input values
+            const electricity = parseFloat(document.getElementById('electricity').value) || 0;
+            const gas = parseFloat(document.getElementById('gas').value) || 0;
+            const water = parseFloat(document.getElementById('water').value) || 0;
+            
+            const vehicleType = document.getElementById('vehicleType').value;
+            const carKm = parseFloat(document.getElementById('carKm').value) || 0;
+            const publicTransport = parseFloat(document.getElementById('publicTransport').value) || 0;
+            const flights = parseFloat(document.getElementById('flights').value) || 0;
+            
+            const diet = document.getElementById('diet').value;
+            const foodWaste = parseFloat(document.getElementById('foodWaste').value) || 0;
+            const localFood = document.getElementById('localFood').value;
+            
+            const clothing = document.getElementById('clothing').value;
+            const electronics = document.getElementById('electronics').value;
+            const streaming = parseFloat(document.getElementById('streaming').value) || 0;
+            
+            // Recycling
+            const recyclePlastic = document.getElementById('recyclePlastic').checked;
+            const recyclePaper = document.getElementById('recyclePaper').checked;
+            const recycleGlass = document.getElementById('recycleGlass').checked;
+            const recycleMetal = document.getElementById('recycleMetal').checked;
+            const recycleElectronics = document.getElementById('recycleElectronics').checked;
+            const recycleTextiles = document.getElementById('recycleTextiles').checked;
+            const compost = document.getElementById('compost').checked;
+            const reusable = document.getElementById('reusable').checked;
+
+            // Calculate emissions by category
+            
+            // 1. ENERGY
+            let energyEmissions = (electricity * FACTORS.electricity * 12) + 
+                                 (gas * FACTORS.gas * 12) + 
+                                 (water * FACTORS.water * 12);
+            
+            // 2. TRANSPORT
+            let transportEmissions = (carKm * FACTORS.vehicle[vehicleType] * 12) + 
+                                    (publicTransport * 20 * FACTORS.publicTransport * 52) + // 20km per day average
+                                    (flights * FACTORS.flight);
+            
+            // 3. FOOD
+            let foodEmissions = FACTORS.diet[diet];
+            
+            // Food waste penalty
+            foodEmissions += (foodEmissions * (foodWaste / 100));
+            
+            // Local food discount
+            const localDiscount = {
+                'low': 1.0,
+                'medium': 0.90,
+                'high': 0.80,
+                'very-high': 0.70
+            };
+            foodEmissions *= localDiscount[localFood];
+            
+            // 4. CONSUMPTION
+            let consumptionEmissions = FACTORS.clothing[clothing] + 
+                                      FACTORS.electronics[electronics] + 
+                                      (streaming * FACTORS.streaming);
+            
+            // 5. RECYCLING SAVINGS
+            let recyclingSavings = 0;
+            if (recyclePlastic) recyclingSavings += FACTORS.recycling.plastic;
+            if (recyclePaper) recyclingSavings += FACTORS.recycling.paper;
+            if (recycleGlass) recyclingSavings += FACTORS.recycling.glass;
+            if (recycleMetal) recyclingSavings += FACTORS.recycling.metal;
+            if (recycleElectronics) recyclingSavings += FACTORS.recycling.electronics;
+            if (recycleTextiles) recyclingSavings += FACTORS.recycling.textiles;
+            if (compost) recyclingSavings += FACTORS.recycling.compost;
+            if (reusable) recyclingSavings += FACTORS.recycling.reusable;
+
+            // Total emissions before recycling
+            const totalBeforeRecycling = energyEmissions + transportEmissions + foodEmissions + consumptionEmissions;
+            
+            // Final total
+            const totalEmissions = Math.round(totalBeforeRecycling - recyclingSavings);
+            
+            // Round individual categories
+            energyEmissions = Math.round(energyEmissions);
+            transportEmissions = Math.round(transportEmissions);
+            foodEmissions = Math.round(foodEmissions);
+            consumptionEmissions = Math.round(consumptionEmissions);
+            recyclingSavings = Math.round(recyclingSavings);
+
+            // Calculate percentages
+            const energyPercent = Math.round((energyEmissions / totalBeforeRecycling) * 100);
+            const transportPercent = Math.round((transportEmissions / totalBeforeRecycling) * 100);
+            const foodPercent = Math.round((foodEmissions / totalBeforeRecycling) * 100);
+            const consumptionPercent = Math.round((consumptionEmissions / totalBeforeRecycling) * 100);
+
+            // Display results
+            document.getElementById('totalEmissions').textContent = totalEmissions.toLocaleString();
+            document.getElementById('energyEmissions').textContent = energyEmissions.toLocaleString();
+            document.getElementById('transportEmissions').textContent = transportEmissions.toLocaleString();
+            document.getElementById('foodEmissions').textContent = foodEmissions.toLocaleString();
+            document.getElementById('consumptionEmissions').textContent = consumptionEmissions.toLocaleString();
+            document.getElementById('recyclingSavings').textContent = recyclingSavings.toLocaleString();
+
+            // Display percentages
+            document.getElementById('energyPercent').textContent = energyPercent;
+            document.getElementById('transportPercent').textContent = transportPercent;
+            document.getElementById('foodPercent').textContent = foodPercent;
+            document.getElementById('consumptionPercent').textContent = consumptionPercent;
+
+            // Update bar chart
+            document.getElementById('energyBar').textContent = energyEmissions.toLocaleString() + ' kg';
+            document.getElementById('transportBar').textContent = transportEmissions.toLocaleString() + ' kg';
+            document.getElementById('foodBar').textContent = foodEmissions.toLocaleString() + ' kg';
+            document.getElementById('consumptionBar').textContent = consumptionEmissions.toLocaleString() + ' kg';
+
+            document.getElementById('energyBarWidth').style.width = energyPercent + '%';
+            document.getElementById('transportBarWidth').style.width = transportPercent + '%';
+            document.getElementById('foodBarWidth').style.width = foodPercent + '%';
+            document.getElementById('consumptionBarWidth').style.width = consumptionPercent + '%';
+
+            // Comparison with average Peruvian
+            const avgPeruEmissions = 2000; // kg CO2 per capita in Peru
+            let comparisonText = '';
+            if (totalEmissions < avgPeruEmissions * 0.7) {
+                comparisonText = '🌟 ¡Excelente! Estás muy por debajo del promedio peruano';
+            } else if (totalEmissions < avgPeruEmissions) {
+                comparisonText = '👍 Estás por debajo del promedio peruano';
+            } else if (totalEmissions < avgPeruEmissions * 1.3) {
+                comparisonText = '⚠️ Estás ligeramente por encima del promedio peruano';
+            } else {
+                comparisonText = '🔴 Tu huella es significativamente mayor al promedio peruano';
+            }
+            document.getElementById('comparison').textContent = comparisonText;
+
+            // Equivalence calculations
+            const treesNeeded = Math.round(totalEmissions / 21); // 1 tree absorbs ~21kg CO2/year
+            document.getElementById('equivalence').textContent = `${treesNeeded} árboles para absorber estas emisiones anuales`;
+
+            // Generate recommendations
+            generateRecommendations({
+                electricity, gas, water, vehicleType, carKm, publicTransport, flights,
+                diet, foodWaste, localFood, clothing, electronics, streaming,
+                recyclePlastic, recyclePaper, recycleGlass, recycleMetal, 
+                recycleElectronics, recycleTextiles, compost, reusable,
+                energyEmissions, transportEmissions, foodEmissions, consumptionEmissions
+            });
+
+            // Show results
+            document.getElementById('results').classList.remove('hidden');
+            document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        function generateRecommendations(data) {
+            const recommendations = [];
+
+            // Energy recommendations
+            if (data.electricity > 350) {
+                recommendations.push({
+                    icon: '💡',
+                    title: 'Reduce tu consumo eléctrico',
+                    text: 'Tu consumo de electricidad es alto. Cambia a focos LED, desconecta aparatos en standby y usa electrodomésticos eficientes.',
+                    impact: 'Alto',
+                    color: 'yellow'
+                });
+            }
+
+            if (data.gas > 60) {
+                recommendations.push({
+                    icon: '🔥',
+                    title: 'Optimiza el uso de gas',
+                    text: 'Considera usar una cocina de inducción o solar. Mantén tu calentador en buen estado.',
+                    impact: 'Medio',
+                    color: 'orange'
+                });
+            }
+
+            // Transport recommendations
+            if (data.vehicleType !== 'none' && data.carKm > 600) {
+                recommendations.push({
+                    icon: '🚲',
+                    title: 'Reduce el uso del vehículo',
+                    text: 'Intenta compartir auto, usar transporte público, bicicleta o caminar para distancias cortas. Considera un vehículo híbrido o eléctrico.',
+                    impact: 'Alto',
+                    color: 'blue'
+                });
+            }
+
+            if (data.publicTransport < 3) {
+                recommendations.push({
+                    icon: '🚌',
+                    title: 'Usa más el transporte público',
+                    text: 'El Metropolitano y corredores complementarios tienen menor huella que vehículos privados.',
+                    impact: 'Medio',
+                    color: 'blue'
+                });
+            }
+
+            if (data.flights > 3) {
+                recommendations.push({
+                    icon: '✈️',
+                    title: 'Limita los vuelos',
+                    text: 'Los vuelos tienen un gran impacto. Considera videoconferencias o turismo local.',
+                    impact: 'Alto',
+                    color: 'blue'
+                });
+            }
+
+            // Food recommendations
+            if (data.diet === 'high-meat') {
+                recommendations.push({
+                    icon: '🥗',
+                    title: 'Reduce el consumo de carne',
+                    text: 'La producción de carne genera muchas emisiones. Intenta tener días sin carne o reduce las porciones.',
+                    impact: 'Alto',
+                    color: 'red'
+                });
+            }
+
+            if (data.foodWaste > 15) {
+                recommendations.push({
+                    icon: '🗑️',
+                    title: 'Reduce el desperdicio de comida',
+                    text: 'Planifica tus compras, almacena correctamente y aprovecha sobras. El desperdicio de comida es responsable del 8% de emisiones globales.',
+                    impact: 'Medio',
+                    color: 'red'
+                });
+            }
+
+            if (data.localFood === 'low') {
+                recommendations.push({
+                    icon: '🌽',
+                    title: 'Compra productos locales y de estación',
+                    text: 'Los productos locales reducen las emisiones del transporte. Visita mercados locales y bioferias.',
+                    impact: 'Medio',
+                    color: 'green'
+                });
+            }
+
+            // Consumption recommendations
+            if (data.clothing === 'high' || data.clothing === 'very-high') {
+                recommendations.push({
+                    icon: '👕',
+                    title: 'Reduce la compra de ropa nueva',
+                    text: 'La moda rápida tiene gran impacto ambiental. Compra ropa de segunda mano, intercambia o repara la que tienes.',
+                    impact: 'Medio',
+                    color: 'purple'
+                });
+            }
+
+            if (data.electronics === 'high' || data.electronics === 'very-high') {
+                recommendations.push({
+                    icon: '📱',
+                    title: 'Alarga la vida de tus dispositivos',
+                    text: 'Repara en lugar de reemplazar. Compra productos reacondicionados cuando sea posible.',
+                    impact: 'Medio',
+                    color: 'purple'
+                });
+            }
+
+            // Recycling recommendations
+            if (!data.recyclePlastic) {
+                recommendations.push({
+                    icon: '♻️',
+                    title: 'Empieza a reciclar plástico',
+                    text: 'Separar el plástico puede ahorrar hasta 180 kg de CO₂ al año. Busca puntos de reciclaje en tu distrito.',
+                    impact: 'Alto',
+                    color: 'teal'
+                });
+            }
+
+            if (!data.recyclePaper) {
+                recommendations.push({
+                    icon: '📄',
+                    title: 'Recicla papel y cartón',
+                    text: 'El reciclaje de papel ahorra energía y reduce 230 kg de CO₂ anuales. Es uno de los materiales más fáciles de reciclar.',
+                    impact: 'Alto',
+                    color: 'teal'
+                });
+            }
+
+            if (!data.compost) {
+                recommendations.push({
+                    icon: '🌱',
+                    title: 'Comienza con el compostaje',
+                    text: 'Los residuos orgánicos en rellenos sanitarios generan metano. El compost reduce hasta 200 kg de CO₂ al año.',
+                    impact: 'Alto',
+                    color: 'green'
+                });
+            }
+
+            if (!data.reusable) {
+                recommendations.push({
+                    icon: '🛍️',
+                    title: 'Usa bolsas y envases reutilizables',
+                    text: 'Evita plásticos de un solo uso. Lleva tu propia bolsa, botella y envases.',
+                    impact: 'Medio',
+                    color: 'teal'
+                });
+            }
+
+            // Priority recommendations based on highest emissions
+            const categories = [
+                { name: 'energía', value: data.energyEmissions },
+                { name: 'transporte', value: data.transportEmissions },
+                { name: 'alimentación', value: data.foodEmissions },
+                { name: 'consumo', value: data.consumptionEmissions }
+            ];
+            
+            categories.sort((a, b) => b.value - a.value);
+            
+            if (categories[0].value > 800) {
+                recommendations.unshift({
+                    icon: '🎯',
+                    title: `Prioridad: Reduce emisiones de ${categories[0].name}`,
+                    text: `Esta categoría representa tu mayor impacto (${categories[0].value} kg CO₂/año). Enfócate aquí para resultados rápidos.`,
+                    impact: 'Crítico',
+                    color: 'red'
+                });
+            }
+
+            // Positive reinforcement
+            const recyclingCount = [data.recyclePlastic, data.recyclePaper, data.recycleGlass, 
+                                   data.recycleMetal, data.recycleElectronics, data.recycleTextiles, 
+                                   data.compost, data.reusable].filter(Boolean).length;
+            
+            if (recyclingCount >= 5) {
+                recommendations.unshift({
+                    icon: '🌟',
+                    title: '¡Excelente trabajo reciclando!',
+                    text: `Estás reciclando ${recyclingCount} tipos de materiales. Sigue así y motiva a otros a hacer lo mismo.`,
+                    impact: 'Positivo',
+                    color: 'green'
+                });
+            }
+
+            // Display recommendations
+            const container = document.getElementById('recommendations');
+            container.innerHTML = recommendations.slice(0, 8).map(rec => `
+                <div class="flex items-start gap-4 p-5 bg-${rec.color}-50 rounded-lg border-l-4 border-${rec.color}-400">
+                    <span class="text-3xl flex-shrink-0">${rec.icon}</span>
+                    <div class="flex-1">
+                        <h4 class="font-semibold text-gray-800 mb-1">${rec.title}</h4>
+                        <p class="text-gray-700 text-sm">${rec.text}</p>
+                        <span class="inline-block mt-2 text-xs font-semibold px-3 py-1 bg-white rounded-full text-${rec.color}-700">
+                            Impacto: ${rec.impact}
+                        </span>
+                    </div>
+                </div>
+            `).join('');
+        }
+    </script>
+</body>
+</html>

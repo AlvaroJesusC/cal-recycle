@@ -1,0 +1,81 @@
+ .categories-carousel-section {
+      padding: 4rem 5%;
+      background: white;
+    }
+
+    .categories-carousel-section h2 {
+      text-align: center;
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 3rem;
+      color: #1a1a1a;
+    }
+
+    .carousel-container {
+      position: relative;
+      overflow: hidden;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .carousel-track {
+      display: flex;
+      gap: 1.5rem;
+      animation: scroll 20s linear infinite;
+    }
+
+    .carousel-track:hover {
+      animation-play-state: paused;
+    }
+
+    @keyframes scroll {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    .category-mini {
+      flex: 0 0 180px;
+      background: white;
+      border: 2px solid #e2e8f0;
+      border-radius: 16px;
+      padding: 2rem 1rem;
+      text-align: center;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .category-mini:hover {
+      transform: translateY(-5px);
+      border-color: #00d4aa;
+      box-shadow: 0 8px 20px rgba(0, 212, 170, 0.15);
+    }
+
+    .category-mini-icon {
+      width: 60px;
+      height: 60px;
+      background: linear-gradient(135deg, #e6fff9, #ccfff0);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      margin: 0 auto 1rem;
+      transition: all 0.3s ease;
+    }
+
+    .category-mini:hover .category-mini-icon {
+      background: linear-gradient(135deg, #00d4aa, #00a887);
+      transform: scale(1.1);
+    }
+
+    .category-mini h4 {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #1a1a1a;
+    }
+
+    /* Duplicar items para loop infinito */
+    .carousel-track-duplicate {
+      display: flex;
+      gap: 1.5rem;
+    }

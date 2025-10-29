@@ -10,20 +10,48 @@
     
     <!-- Estilos -->
     <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/loopcarusel.css">
 </head>
 
 <body>
-    <!-- Navbar se carga automáticamente -->
+    <!-- barra superior  -->
     <div id="navbar-container"></div>
 
     <section class="hero">
         <h1>Descubre los puntos ecológicos cerca de ti y únete al cambio sostenible.</h1>
         <a href="mapa.html" class="cta-btn">Explorar el mapa</a>
     </section>
+<section class="categories-carousel-section">
+  <h2>Categorías destacadas</h2>
+  <div class="carousel-container">
+    <div class="carousel-track" id="carouselTrack"></div>
+  </div>
+</section>
 
+<script>
+  const categorias = [
+    { icon: "♻️", nombre: "Plástico" },
+    { icon: "🍾", nombre: "Vidrio" },
+    { icon: "👕", nombre: "Ropa" },
+    { icon: "💧", nombre: "Agua" },
+    { icon: "🌱", nombre: "Huerto" },
+    { icon: "⚙️", nombre: "Otros" }
+  ];
+
+  const track = document.getElementById("carouselTrack");
+
+  // Genera los elementos con el loop
+  track.innerHTML = categorias
+    .map(c => `<div class="category-mini"><div class="category-mini-icon">${c.icon}</div><h4>${c.nombre}</h4></div>`)
+    .join('');
+  track.innerHTML += track.innerHTML; // se duplica
+
+
+</script>
     <section class="mission">
-        <h2>Nuestra Misión</h2>
-        <p>EcoMap es una plataforma digital dedicada a facilitar la localización y el uso de puntos ecológicos y de reciclaje en todo el Perú. Nuestra misión es fomentar una cultura de reciclaje activa, conectando a ciudadanos comprometidos con el medio ambiente y proporcionando las herramientas necesarias para que cada pequeña acción contribuya a un gran cambio sostenible.</p>
+        <h2>Nuestra Objetivo</h2>
+        <p>Implementar un sistema web Cal-Recycle que permita a ciudadanos y empresas de Ate monitorizar su huella de carbono y fomentar prácticas de reciclaje sostenibles, reduciendo en un 20% las emisiones de gases de efecto invernadero relacionadas con residuos sólidos en el primer año de implementación.
+</p>
     </section>
 
     <section class="features">
@@ -52,6 +80,12 @@
                 <p>Gestiona tu impacto ambiental.</p>
                 <a href="#perfil" class="feature-link">Ir a mi perfil →</a>
             </div>
+            <div class="feature">
+                <div class="feature-icon"><img src="assets/icono.png" alt="Icono"></div>
+                <h3>Tu perfil ecológico</h3>
+                <p>Calcula tu huella de carbono</p>
+                <a href="calcular.html" class="feature-link">Ir a calcular →</a>
+            </div>
         </div>
     </section>
     
@@ -78,6 +112,7 @@
                 <h3>4. Cuida el planeta</h3>
                 <p>Cada gesto cuenta para un futuro más verde.</p>
             </div>
+            
         </div>
     </section>
 

@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EcoMap - Autenticación</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      overflow: hidden;
+      position: relative;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .bg-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+    }
+
+    .bg-slide {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      opacity: 0;
+      transition: opacity 1.5s ease-in-out;
+    }
+
+    .bg-slide.active {
+      opacity: 1;
+    }
+
+    .bg-container::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(34, 197, 94, 0.55);
+    }
+  </style>
+</head>
+<body class="flex items-center justify-center min-h-screen font-sans">
+
+  <!-- Fondo con loop -->
+  <div class="bg-container" id="bgContainer">
+    <div class="bg-slide active" style="background-image: url('assets/bg1.jpeg')"></div>
+    <div class="bg-slide" style="background-image: url('assets/bg2.jpeg')"></div>
+    <div class="bg-slide" style="background-image: url('assets/bg3.jpeg')"></div>
+    <div class="bg-slide" style="background-image: url('assets/bg4.jpeg')"></div>
+  </div>
+
+  <!-- Contenedor principal -->
+  <div id="container" class="relative w-[850px] h-[500px] bg-white rounded-3xl shadow-2xl overflow-hidden transition-all duration-700 ease-in-out">
+    
+    <!-- Panel de inicio de sesión -->
+    <div class="absolute inset-0 flex items-center justify-start px-20 transition-all duration-700 ease-in-out" id="signIn">
+      <div class="w-[300px]">
+        <h2 class="text-3xl font-bold text-green-800 mb-6">Iniciar sesión</h2>
+        <form id="loginForm" class="flex flex-col gap-4">
+          <input 
+            type="email" 
+            id="loginEmail" 
+            placeholder="Correo electrónico" 
+            required
+            class="p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400">
+          <input 
+            type="password" 
+            id="loginPassword" 
+            placeholder="Contraseña" 
+            required
+            class="p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400">
+          <button 
+            type="submit" 
+            class="bg-green-600 text-white py-2 rounded-lg hover:bg-green-700 transition">
+            Entrar
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Panel de registro -->
+    <div class="absolute inset-0 flex items-center justify-end px-20 transition-all duration-700 ease-in-out opacity-0 translate-x-full" id="signUp">
+      <div class="w-[300px]">
+        <h2 class="text-3xl font-bold text-green-800 mb-6">Crear cuenta</h2>
+        <form id="registerForm" class="flex flex-col gap-4">
+          <input 
+            type="text" 
+            id="registerNombre" 
+            placeholder="Nombre" 
+            required
+            class="p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400">
+          <input 
+            type="text" 
+            id="registerApellidos" 
+            placeholder="Apellidos" 
+            required
+            class="p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400">
+          <input 
+            type="email" 
+            id="registerEmail" 
+            placeholder="Correo electrónico" 
+            required
+            class="p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400">
+          <input 
+            type="password" 
+            id="registerPassword" 
+            placeholder="Contraseña (mín. 6 caracteres)" 
+            required
+            minlength="6"
+            class="p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400">
+          <button 
+            type="submit" 
+            class="bg-green-600 text-white py-2 rounded-lg hover:bg-green-700 transition">
+            Registrarse
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Panel deslizante -->
+    <div id="overlay" class="absolute top-0 left-1/2 w-1/2 h-full bg-gradient-to-br from-green-500 to-emerald-700 text-white flex flex-col items-center justify-center text-center px-10 rounded-l-[100px] transition-all duration-700 ease-in-out">
+      <div id="overlay-signin">
+        <h2 class="text-3xl font-bold mb-4">¡Hola, Amigo!</h2>
+        <p class="mb-6">Regístrate para ser parte de la comunidad ecológica 🌱</p>
+        <button id="toSignUp" class="border-2 border-white px-6 py-2 rounded-full hover:bg-white hover:text-green-700 transition">Registrarse</button>
+      </div>
+      <div id="overlay-signup" class="hidden">
+        <h2 class="text-3xl font-bold mb-4">¡Bienvenido de nuevo!</h2>
+        <p class="mb-6">Inicia sesión si ya eres parte de EcoMap 🍃</p>
+        <button id="toSignIn" class="border-2 border-white px-6 py-2 rounded-full hover:bg-white hover:text-green-700 transition">Iniciar sesión</button>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    // ===== CONFIGURACIÓN =====
+    const API_URL = 'api/auth.php'; // Ajusta la ruta según tu estructura
+
+    // ===== TRANSICIÓN DE PANELES =====
+    const signIn = document.getElementById('signIn');
+    const signUp = document.getElementById('signUp');
+    const overlay = document.getElementById('overlay');
+    const overlaySignin = document.getElementById('overlay-signin');
+    const overlaySignup = document.getElementById('overlay-signup');
+    const toSignUp = document.getElementById('toSignUp');
+    const toSignIn = document.getElementById('toSignIn');
+
+    toSignUp.addEventListener('click', () => {
+      signIn.classList.add('opacity-0', '-translate-x-full');
+      signUp.classList.remove('opacity-0', 'translate-x-full');
+      overlay.classList.remove('left-1/2', 'rounded-l-[100px]');
+      overlay.classList.add('left-0', 'rounded-r-[100px]');
+      overlaySignin.classList.add('hidden');
+      overlaySignup.classList.remove('hidden');
+    });
+
+    toSignIn.addEventListener('click', () => {
+      signIn.classList.remove('opacity-0', '-translate-x-full');
+      signUp.classList.add('opacity-0', 'translate-x-full');
+      overlay.classList.add('left-1/2', 'rounded-l-[100px]');
+      overlay.classList.remove('left-0', 'rounded-r-[100px]');
+      overlaySignin.classList.remove('hidden');
+      overlaySignup.classList.add('hidden');
+    });
+
+    // ===== CAMBIO DE FONDO =====
+    const slides = document.querySelectorAll('.bg-slide');
+    let current = 0;
+    setInterval(() => {
+      slides[current].classList.remove('active');
+      current = (current + 1) % slides.length;
+      slides[current].classList.add('active');
+    }, 6000);
+
+    // ===== LOGIN =====
+    document.getElementById('loginForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const email = document.getElementById('loginEmail').value.trim();
+      const contrasena = document.getElementById('loginPassword').value;
+
+      if (!email || !contrasena) {
+        Swal.fire('Error', 'Completa todos los campos', 'warning');
+        return;
+      }
+
+      try {
+        const response = await fetch(`${API_URL}?action=login`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, contrasena })
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+          Swal.fire({
+            icon: 'success',
+            title: '¡Bienvenido!',
+            text: data.mensaje,
+            timer: 2000,
+            showConfirmButton: false
+          }).then(() => {
+            window.location.href = 'index.html';
+          });
+        } else {
+          Swal.fire('Error', data.mensaje, 'error');
+        }
+      } catch (error) {
+        Swal.fire('Error', 'No se pudo conectar con el servidor', 'error');
+        console.error(error);
+      }
+    });
+
+    // ===== REGISTRO =====
+    document.getElementById('registerForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const nombre = document.getElementById('registerNombre').value.trim();
+      const apellidos = document.getElementById('registerApellidos').value.trim();
+      const email = document.getElementById('registerEmail').value.trim();
+      const contrasena = document.getElementById('registerPassword').value;
+
+      if (!nombre || !apellidos || !email || !contrasena) {
+        Swal.fire('Error', 'Completa todos los campos', 'warning');
+        return;
+      }
+
+      if (contrasena.length < 6) {
+        Swal.fire('Error', 'La contraseña debe tener al menos 6 caracteres', 'warning');
+        return;
+      }
+
+      try {
+        const response = await fetch(`${API_URL}?action=register`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ nombre, apellidos, email, contrasena })
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+          Swal.fire({
+            icon: 'success',
+            title: '¡Registro exitoso!',
+            text: `Bienvenido ${nombre} 🌱`,
+            timer: 2000,
+            showConfirmButton: false
+          }).then(() => {
+            window.location.href = 'index.html';
+          });
+        } else {
+          Swal.fire('Error', data.mensaje, 'error');
+        }
+      } catch (error) {
+        Swal.fire('Error', 'No se pudo conectar con el servidor', 'error');
+        console.error(error);
+      }
+    });
+  </script>
+</body>
+</html>
