@@ -3,44 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cal-Recycle - Puntos Ecológicos en Perú</title>
+    <title>EcoMap - Puntos Ecológicos en Perú</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
+    
+    <!-- Estilos -->
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 
 <body>
-    <header>
-        <div class="logo">
-            <div class="logo-icon">🌿</div>
-            <span>Cal-Recycle</span>
-        </div>
-        <nav>
-            <a href="#inicio">Inicio</a>
-            <a href="#mapa">Mapa</a>
-            <a href="#categorias">Categorías</a>
-            <a href="reseñas.html">Reseñas</a>
-            <a href="#contacto">Contacto</a>
-            <button class="lang-btn">🌐</button>
-        </nav>
-    </header>
+    <!-- Navbar se carga automáticamente -->
+    <div id="navbar-container"></div>
 
-   <div id="navbar-container"></div>
-    
-    <!-- El resto de tu contenido igual -->
     <section class="hero">
         <h1>Descubre los puntos ecológicos cerca de ti y únete al cambio sostenible.</h1>
         <a href="mapa.html" class="cta-btn">Explorar el mapa</a>
     </section>
-    <!-- ... -->
-
-    <!-- Agrega este script antes de cerrar </body> -->
-    <script src="navbar.js"></script>
 
     <section class="mission">
         <h2>Nuestra Misión</h2>
-        <p>Cal-Recycle es una plataforma digital dedicada a facilitar la localización y el uso de puntos ecológicos y de reciclaje en todo el Perú. Nuestra misión es fomentar una cultura de reciclaje activa, conectando a ciudadanos comprometidos con el medio ambiente y proporcionando las herramientas necesarias para que cada pequeña acción contribuya a un gran cambio sostenible.</p>
+        <p>EcoMap es una plataforma digital dedicada a facilitar la localización y el uso de puntos ecológicos y de reciclaje en todo el Perú. Nuestra misión es fomentar una cultura de reciclaje activa, conectando a ciudadanos comprometidos con el medio ambiente y proporcionando las herramientas necesarias para que cada pequeña acción contribuya a un gran cambio sostenible.</p>
     </section>
 
     <section class="features">
@@ -55,7 +38,7 @@
                 <div class="feature-icon">🔄</div>
                 <h3>Categorías de reciclaje</h3>
                 <p>Clasifica materiales reciclables.</p>
-                <a href="#categorias" class="feature-link">Ver categorías →</a>
+                <a href="categorias.html" class="feature-link">Ver categorías →</a>
             </div>
             <div class="feature">
                 <div class="feature-icon">⭐</div>
@@ -101,16 +84,16 @@
     <section class="stats">
         <div class="stats-grid">
             <div class="stat">
-                <span class="stat-number">8</span>
+                <span class="stat-number">+120</span>
                 <span class="stat-label">puntos ecológicos</span>
             </div>
             <div class="stat">
-                <span class="stat-number">datos</span>
-                <span class="stat-label">datoss</span>
+                <span class="stat-number">+500</span>
+                <span class="stat-label">usuarios activos</span>
             </div>
             <div class="stat">
-                <span class="stat-number">123</span>
-                <span class="stat-label">123</span>
+                <span class="stat-number">2.3</span>
+                <span class="stat-label">toneladas recicladas</span>
             </div>
         </div>
     </section>
@@ -122,13 +105,13 @@
                     <div class="logo-icon">🌿</div>
                     <span>EcoMap</span>
                 </div>
-                <p style="color: #a0aec0; margin-top: 1rem;"> Cal-Recycle. </p>
+                <p style="color: #a0aec0; margin-top: 1rem;">© 2024 EcoMap. Todos los derechos reservados.</p>
             </div>
             <div class="footer-links">
                 <h4>Navegación</h4>
-                <a href="#inicio">Inicio</a>
-                <a href="#mapa">Mapa</a>
-                <a href="#categorias">Categorías</a>
+                <a href="index.html">Inicio</a>
+                <a href="mapa.html">Mapa</a>
+                <a href="categorias.html">Categorías</a>
             </div>
             <div class="footer-links">
                 <h4>Comunidad</h4>
@@ -148,5 +131,8 @@
             <p>Construyendo un futuro más sostenible juntos 🌱</p>
         </div>
     </footer>
+
+    <!-- Scripts -->
+    <script src="js/navbar.js"></script>
 </body>
 </html>
