@@ -566,3 +566,7 @@
         0 0 30px rgba(0, 245, 255, 0.6),
         0 0 50px rgba(0, 255, 136, 0.4);
 }
+
+html {
+        scroll-behavior: smooth;
+}
