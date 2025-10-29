@@ -1,5 +1,5 @@
 <?php
-// api/auth.php
+// ruta = api/auth.php
 header("Content-Type: application/json");
 require_once '../config/db.php';
 session_start();
